@@ -10,7 +10,6 @@ class Manager < Employee
         subemployee_salaries * multiplier
     end
 
-    # protected
-    # :
+    attr_reader :reports
 
 end
