@@ -5,12 +5,11 @@ class Board
     def initialize
         @rows = Array.new(8) {Array.new(8, nil)}
         add_pawns
-        add_rooks
-        add_knights
-        add_bishops
-        add_queens
-        add_kings
-        puts rows
+        # add_rooks
+        # add_knights
+        # add_bishops
+        # add_queens
+        # add_kings
     end
 
     def [](pos)
@@ -26,11 +25,11 @@ class Board
     def add_pawns
         i = 0
         while i < rows.length
-            self[[1, i]] = Piece.new
-            self[[6, i]] = Piece.new 
+            self[[1, i]] = Piece.new(:white, self, [1, i])
+            self[[6, i]] = Piece.new(:black, self, [6, i])
             i += 1
         end
-        
+
         # rows[1].each {|space| space = "hello"} # future will be from Pawn class
         # rows[6].each {|space| space = Piece.new} # future will be from Pawn class
     end
