@@ -1,6 +1,7 @@
 require_relative "modules.rb"
 
 class Piece
+    attr_accessor :pos, :board, :color
     include Slideable
 
     def initialize(board, color, pos)
@@ -9,6 +10,6 @@ class Piece
         @pos = pos
     end
 
-    attr_reader :pos, :board, :color
+
 
 end

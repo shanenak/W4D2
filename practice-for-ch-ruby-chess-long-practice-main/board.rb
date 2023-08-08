@@ -1,15 +1,17 @@
 require_relative "piece.rb"
+require_relative "piece_nullpiece.rb"
 
 class Board
 
     def initialize
         @rows = Array.new(8) {Array.new(8, nil)}
         add_pawns
-        # add_rooks
+        add_rooks
         # add_knights
         # add_bishops
         # add_queens
         # add_kings
+        fill_empty_spaces
     end
 
     def [](pos)
@@ -25,8 +27,8 @@ class Board
     def add_pawns
         i = 0
         while i < rows.length
-            self[[1, i]] = Piece.new(:white, self, [1, i])
-            self[[6, i]] = Piece.new(:black, self, [6, i])
+            self[[1, i]] = Piece.new(self, :white, [1, i])
+            self[[6, i]] = Piece.new(self, :black, [6, i])
             i += 1
         end
 
@@ -35,10 +37,10 @@ class Board
     end
 
     def add_rooks
-        self[[0,7]] = Piece.new # will be rook
-        self[[0,0]] = Piece.new # will be rook
-        self[[7,7]] = Piece.new # will be rook
-        self[[7,0]] = Piece.new # will be rook
+        self[[0,7]] = Piece.new(self, :white, [0,7]) # will be rook
+        self[[0,0]] = Piece.new(self, :white, [0,0]) # will be rook
+        self[[7,7]] = Piece.new(self, :black, [7,7]) # will be rook
+        self[[7,0]] = Piece.new(self, :black, [7,0]) # will be rook
     end
 
     def add_knights
@@ -65,11 +67,13 @@ class Board
         self[[7,4]] = Piece.new
     end
 
-    # def fill_empty_spaces
-    #     rows.each do |row|
-    #         row.each {|spot| spot = }
-        # end
-    # end
+    def fill_empty_spaces
+        rows.each_with_index do |row, row_idx|
+            row.each_with_index do |col, col_idx|
+                self[[row_idx, col_idx]] = NullPiece.instance if self[[row_idx, col_idx]].nil?
+            end
+        end
+    end
 
     def move_piece(start_pos, end_pos)
         raise 'There is no piece in that spot' if self[start_pos].nil?
@@ -78,6 +82,17 @@ class Board
         self[start_pos] = nil
     end
 
+    def valid_position?(pos)
+        x, y = pos
+        return false if x > 7 || x < 0
+        return false if y > 7 || y < 0
+        return true 
+    end
+
+    def empty_space?(next_pos)
+        board[next_pos]
+    end
+
     # protected
-    attr_reader :rows
+    attr_accessor :rows
 end
