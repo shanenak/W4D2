@@ -1,6 +1,11 @@
 class Piece
-    def initialize
-        # @value = value
-        # @queen = Queen.new()
+    def initialize(board, color, pos)
+        @board = board
+        @color = color
+        @pos = pos
     end
+
+    # def moves 
+
+    # end
 end

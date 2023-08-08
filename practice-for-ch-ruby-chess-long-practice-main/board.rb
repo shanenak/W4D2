@@ -24,8 +24,15 @@ class Board
     end
 
     def add_pawns
-        rows[1].each {|space| space = "hello"} # future will be from Pawn class
-        rows[6].each {|space| space = Piece.new} # future will be from Pawn class
+        i = 0
+        while i < rows.length
+            self[[1, i]] = Piece.new
+            self[[6, i]] = Piece.new 
+            i += 1
+        end
+        
+        # rows[1].each {|space| space = "hello"} # future will be from Pawn class
+        # rows[6].each {|space| space = Piece.new} # future will be from Pawn class
     end
 
     def add_rooks
@@ -66,10 +73,10 @@ class Board
     # end
 
     def move_piece(start_pos, end_pos)
-        raise 'There is no piece in that spot' if rows[start_pos].nil?
-        raise "This piece can't go there" if !rows[end_pos].nil? # not considering if piece was moved correctly
-        rows[end_pos] = rows[start_pos]
-        rows[start_pos] = nil
+        raise 'There is no piece in that spot' if self[start_pos].nil?
+        raise "This piece can't go there" if !self[end_pos].nil? # not considering if piece was moved correctly
+        self[end_pos] = self[start_pos]
+        self[start_pos] = nil
     end
 
     # protected
