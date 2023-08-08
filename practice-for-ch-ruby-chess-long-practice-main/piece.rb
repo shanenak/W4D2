@@ -5,7 +5,4 @@ class Piece
         @pos = pos
     end
 
-    # def moves 
-
-    # end
 end
