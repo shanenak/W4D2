@@ -1,5 +1,5 @@
-require_relative "piece.rb"
 require_relative "piece_nullpiece.rb"
+require_relative "piece_rook.rb"
 
 class Board
 
@@ -37,10 +37,10 @@ class Board
     end
 
     def add_rooks
-        self[[0,7]] = Piece.new(self, :white, [0,7]) # will be rook
-        self[[0,0]] = Piece.new(self, :white, [0,0]) # will be rook
-        self[[7,7]] = Piece.new(self, :black, [7,7]) # will be rook
-        self[[7,0]] = Piece.new(self, :black, [7,0]) # will be rook
+        self[[0,7]] = Rook.new(self, :white, [0,7])
+        self[[0,0]] = Rook.new(self, :white, [0,0])
+        self[[7,7]] = Rook.new(self, :black, [7,7])
+        self[[7,0]] = Rook.new(self, :black, [7,0])
     end
 
     def add_knights
@@ -86,7 +86,7 @@ class Board
         x, y = pos
         return false if x > 7 || x < 0
         return false if y > 7 || y < 0
-        return true 
+        return true
     end
 
     def empty_space?(next_pos)

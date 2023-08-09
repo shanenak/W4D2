@@ -1,23 +1,32 @@
 require 'byebug'
+
 module Slideable
 
-    HORIZONTAL_DIRS = [[1, 0], [-1, 0], [0, 1], [0, -1]]
-    DIAGONAL_DIRS = [[-1, -1], [-1, 1], [1, -1], [1, 1]]
+    # HORIZONTAL_DIRS = [[1, 0], [-1, 0], [0, 1], [0, -1]]
+    # DIAGONAL_DIRS = [[-1, -1], [-1, 1], [1, -1], [1, 1]]
 
-    def moves(direction) # chosen in piece child
+    def horizontal_dirs
+        [[1, 0], [-1, 0], [0, 1], [0, -1]]
+    end
+
+    def diagonal_dirs
+        [[-1, -1], [-1, 1], [1, -1], [1, 1]]
+    end
+
+    def moves(direction)
 
         all_moves = []
         direction.each do |dir|
            next_pos = get_next_pos(pos, dir) # new possible pos
-            if board.valid_position?(next_pos) 
-            # if there's no piece OR if it's opponent's piece
+
+            if board.valid_position?(next_pos)
+
                 while board[next_pos] == NullPiece.instance || enemy_piece?(next_pos)
                     all_moves << next_pos
                     break if enemy_piece?(next_pos)
                     next_pos = get_next_pos(next_pos, dir)
                 end
             end
-
         end
         all_moves
     end
@@ -29,8 +38,9 @@ module Slideable
     end
 
     def enemy_piece?(next_pos)
-        board[next_pos].color != color
+        board[next_pos].color != color && !board[next_pos].color.nil?
     end
+
 end
 
 
